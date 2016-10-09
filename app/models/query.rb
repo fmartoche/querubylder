@@ -12,7 +12,7 @@ class Query < ActiveRecord::Base
 
     inputs_insecure = are_inputs_insecure?
     if inputs_insecure
-      raise "InsecureInputError: "
+      raise "InsecureInputError: #{inputs_insecure}"
     end
 
     tables = get_all_tables_needed
