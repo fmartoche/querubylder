@@ -1,29 +1,21 @@
 class QueriesController < ApplicationController
-  before_action :set_query, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
-  # GET /queries
-  # GET /queries.json
   def index
     @queries = Query.all
   end
 
-  # GET /queries/1
-  # GET /queries/1.json
   def show
     @generated_sql = @query.build_query
   end
 
-  # GET /queries/new
   def new
     @query = Query.new
   end
 
-  # GET /queries/1/edit
   def edit
   end
 
-  # POST /queries
-  # POST /queries.json
   def create
     @query = Query.new(query_params)
 
@@ -38,8 +30,6 @@ class QueriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /queries/1
-  # PATCH/PUT /queries/1.json
   def update
     respond_to do |format|
       if @query.update(query_params)
@@ -52,8 +42,6 @@ class QueriesController < ApplicationController
     end
   end
 
-  # DELETE /queries/1
-  # DELETE /queries/1.json
   def destroy
     @query.destroy
     respond_to do |format|
@@ -63,12 +51,6 @@ class QueriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_query
-      @query = Query.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def query_params
       p = params.require(:query).permit(:dimensions, :metrics, :conditions)
       p[:dimensions] = params[:query][:dimensions].to_yaml

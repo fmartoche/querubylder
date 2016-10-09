@@ -11,29 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :dimensions %><br>
-    <% AllowedInput.where(input_type: 'dimension').all.each do |input| %>
-      <%= f.check_box(:dimensions, { :multiple => true }, input.name, nil) %>
-      <%= input.alias %>
-      <br/>
-    <% end %>
+  <div class="row">
+    <div class="field col-xs-12 col-sm-6" style="border: 1px solid black">
+      <%= f.label :dimensions %><br>
+      <% AllowedInput.where(input_type: 'dimension').all.each do |input| %>
+        <div class="col-xs-6">
+          <%= f.check_box(:dimensions, { :multiple => true }, input.name, nil) %>
+          <%= input.alias %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="field col-xs-12 col-sm-6" style="border: 1px solid black">
+      <%= f.label :metrics %><br>
+      <% AllowedInput.where(input_type: 'metric').all.each do |input| %>
+        <div class="col-xs-6">
+          <%= f.check_box(:metrics, { :multiple => true }, input.name, nil) %>
+          <%= input.alias %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :metrics %><br>
-    <% AllowedInput.where(input_type: 'metric').all.each do |input| %>
-      <%= f.check_box(:metrics, { :multiple => true }, input.name, nil) %>
-      <%= input.alias %>
-      <br/>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :conditions %><br>
-    <%= f.text_field :conditions %>
-  </div>
-  <div class="actions">
+  <div class="actions row" style="margin: 30px; text-align: center">
     <%= f.submit %>
   </div>
 <% end %>

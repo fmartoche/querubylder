@@ -2,22 +2,25 @@
 
 <p>
   <strong>Selected dimensions:</strong>
-  <%= @query.get_dimensions %>
+  <ul>
+    <% @query.get_dimensions.each do |dim| %>
+      <li><%= dim %></li>
+    <% end %>
+  </ul>
 </p>
 
 <p>
   <strong>Selected metrics:</strong>
-  <%= @query.get_metrics %>
-</p>
-
-<p>
-  <strong>Conditions:</strong>
-  <%= @query.conditions %>
+  <ul>
+    <% @query.get_metrics.each do |metric| %>
+      <li><%= metric %></li>
+    <% end %>
+  </ul>
 </p>
 
 <p>
   <strong>Generated sql:</strong>
-  <%= @generated_sql %>
+  <%= simple_format(@generated_sql) %>
 </p>
 
 

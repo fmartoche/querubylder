@@ -1,28 +1,20 @@
 class TableColumnsController < ApplicationController
-  before_action :set_table_column, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
-  # GET /table_columns
-  # GET /table_columns.json
   def index
     @table_columns = TableColumn.all
   end
 
-  # GET /table_columns/1
-  # GET /table_columns/1.json
   def show
   end
 
-  # GET /table_columns/new
   def new
     @table_column = TableColumn.new
   end
 
-  # GET /table_columns/1/edit
   def edit
   end
 
-  # POST /table_columns
-  # POST /table_columns.json
   def create
     @table_column = TableColumn.new(table_column_params)
 
@@ -37,8 +29,6 @@ class TableColumnsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /table_columns/1
-  # PATCH/PUT /table_columns/1.json
   def update
     respond_to do |format|
       if @table_column.update(table_column_params)
@@ -51,8 +41,6 @@ class TableColumnsController < ApplicationController
     end
   end
 
-  # DELETE /table_columns/1
-  # DELETE /table_columns/1.json
   def destroy
     @table_column.destroy
     respond_to do |format|
@@ -62,12 +50,6 @@ class TableColumnsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_table_column
-      @table_column = TableColumn.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def table_column_params
       params.require(:table_column).permit(:name, :type)
     end

@@ -1,0 +1,27 @@
+<h2> Database Schema </h2>
+
+<br/>
+
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <% Table.order(:name).all.each do |table| %>
+        <th><%= table.name %></th>
+      <% end %>
+    </tr>
+
+    <% columns = Table.order(:name).all.map(&:table_columns)
+       columns.map(&:length).max.times do |i| %>
+      <tr>
+        <% columns.each do |col| 
+           if col[i] %>
+             <td><%= col[i].name %></td>
+        <% end
+        end %>
+      </tr>
+    <% end %>
+
+  </table>
+</div>
+
+<br/>

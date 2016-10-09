@@ -2,30 +2,44 @@
 
 <h1>Listing Queries</h1>
 
-<table>
-  <thead>
+<br>
+
+<%= link_to 'New Query', new_query_path %>
+
+<br>
+<br>
+
+<div class="table-responsive">
+  <table class="table">
     <tr>
       <th>Dimensions</th>
       <th>Metrics</th>
-      <th>Conditions</th>
+      <th>SQL</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
-
-  <tbody>
+  
     <% @queries.each do |query| %>
       <tr>
-        <td><%= query.dimensions %></td>
-        <td><%= query.metrics %></td>
-        <td><%= query.conditions %></td>
+        <td>
+          <ul>
+            <% query.get_dimensions.each do |dim| %>
+              <li><%= dim %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <% query.get_metrics.each do |metric| %>
+              <li><%= metric %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td><%= simple_format(query.build_query) %></td>
         <td><%= link_to 'Show', query %></td>
         <td><%= link_to 'Edit', edit_query_path(query) %></td>
         <td><%= link_to 'Destroy', query, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+  </table>
+</div>
 
-<br>
-
-<%= link_to 'New Query', new_query_path %>

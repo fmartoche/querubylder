@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'cancancan', '~> 1.10'
 gem 'rails_12factor'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'

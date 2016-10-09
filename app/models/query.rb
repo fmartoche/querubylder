@@ -36,6 +36,7 @@ class Query < ActiveRecord::Base
     p "group_by: #{group_by}"
     final_query = build_query_from_strings(selects, joins, group_by)
     p "final query: #{final_query}"
+    final_query
   end
 
   def get_all_tables_needed
@@ -136,8 +137,12 @@ class Query < ActiveRecord::Base
   def build_select(dimensions, metrics)
     out = "SELECT
   "
-    (dimensions+metrics).each do |s|
-      out += ", #{s}
+    (dimensions+metrics).each_with_index do |s, i|
+      if i > 0
+        comma = ","
+      end
+
+      out += "#{comma} #{s}
   "
     end
 

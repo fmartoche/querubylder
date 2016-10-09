@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20161009101205) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "allowed_inputs", force: :cascade do |t|
     t.string   "name"
     t.string   "input_type"
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(version: 20161009101205) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "table_columns", ["table_id"], name: "index_table_columns_on_table_id"
+  add_index "table_columns", ["table_id"], name: "index_table_columns_on_table_id", using: :btree
 
   create_table "tables", force: :cascade do |t|
     t.string   "name"
@@ -45,4 +48,5 @@ ActiveRecord::Schema.define(version: 20161009101205) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "table_columns", "tables"
 end
