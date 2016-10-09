@@ -1,28 +1,5 @@
-== README
+== Querubylder
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The objective of querubylder is to provide an easy way to query data from various sources (several tables). People just say what data they want as an output (the columns they want in their spreadsheet) and querubylder builds the appropriate SQL query.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+You can find a demo {here}[http://querubylder.herokuapp.com] ({http://querubylder.herokuapp.com}[http://querubylder.herokuapp.com]).
