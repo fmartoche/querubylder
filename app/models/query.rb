@@ -12,19 +12,24 @@ class Query < ActiveRecord::Base
 
     inputs_insecure = are_inputs_insecure?
     if inputs_insecure
-      p "InsecureInputError: #{inputs_insecure}"
       raise "InsecureInputError: #{inputs_insecure}"
     end
 
     tables = get_all_tables_needed
     puts "Tables: #{tables}"
-    table_graph = build_table_graph
-    puts "Table graph: #{table_graph}"
-    puts "Table graph edges: #{table_graph.edges}"
-    table_path = build_table_path_from_table_graph(table_graph, tables)
-    p "Table path: #{table_path}"
-    joins = generate_joins_from_path(table_path)
-    p "joins: #{joins}"
+
+    if tables.length > 1
+      table_graph = build_table_graph
+      puts "Table graph: #{table_graph}"
+      puts "Table graph edges: #{table_graph.edges}"
+      table_path = build_table_path_from_table_graph(table_graph, tables)
+      p "Table path: #{table_path}"
+      joins = generate_joins_from_path(table_path)
+      p "joins: #{joins}"
+    else 
+      joing = "FROM #{tables.first}   "
+    end 
+
     selects = build_select(get_dimensions, get_metrics)
     p "selects: #{selects}"
     group_by = build_group_by(get_dimensions, get_metrics)
