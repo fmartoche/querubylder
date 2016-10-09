@@ -27,7 +27,7 @@ class Query < ActiveRecord::Base
       joins = generate_joins_from_path(table_path)
       p "joins: #{joins}"
     else 
-      joing = "FROM #{tables.first}   "
+      joins = "FROM #{tables.first}   "
     end 
 
     selects = build_select(get_dimensions, get_metrics)
