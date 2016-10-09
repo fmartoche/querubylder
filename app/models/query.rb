@@ -12,6 +12,7 @@ class Query < ActiveRecord::Base
 
     inputs_insecure = are_inputs_insecure?
     if inputs_insecure
+      p "InsecureInputError: #{inputs_insecure}"
       raise "InsecureInputError: #{inputs_insecure}"
     end
 
