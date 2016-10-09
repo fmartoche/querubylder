@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  resources :allowed_inputs
   resources :table_columns
   resources :queries
   resources :tables
+
+  root 'queries#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

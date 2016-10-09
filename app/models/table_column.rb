@@ -1,3 +1,3 @@
 class TableColumn < ActiveRecord::Base
-  has_many :tables
+  belongs_to :table
 end

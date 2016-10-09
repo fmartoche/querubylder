@@ -1,0 +1,1 @@
+json.partial! "allowed_inputs/allowed_input", allowed_input: @allowed_input

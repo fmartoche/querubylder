@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @allowed_input.name %>
+</p>
+
+<p>
+  <strong>Input type:</strong>
+  <%= @allowed_input.input_type %>
+</p>
+
+<p>
+  <strong>Alias:</strong>
+  <%= @allowed_input.alias %>
+</p>
+
+<%= link_to 'Edit', edit_allowed_input_path(@allowed_input) %> |
+<%= link_to 'Back', allowed_inputs_path %>

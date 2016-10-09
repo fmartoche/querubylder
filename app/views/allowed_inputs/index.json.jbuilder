@@ -1,0 +1,1 @@
+json.array! @allowed_inputs, partial: 'allowed_inputs/allowed_input', as: :allowed_input

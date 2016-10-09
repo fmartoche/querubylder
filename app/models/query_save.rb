@@ -6,8 +6,8 @@ class Query < ActiveRecord::Base
   require 'djikstra.rb'
 
   def build_query
-    #self.dimensions=Marshal.dump(['sessions.start_date', 'hits.type'])
-    #self.metrics=Marshal.dump(['COUNT(custom_dimensions.id)'])
+    self.dimensions=Marshal.dump(['sessions.start_date', 'hits.type'])
+    self.metrics=Marshal.dump(['COUNT(custom_dimensions.id)'])
 
     unless are_inputs_secure?
       raise "InsecureInputError"
@@ -77,24 +77,12 @@ class Query < ActiveRecord::Base
   def generate_joins_from_path(path)
     joins = "FROM #{path[0]}
 "
-    path[1..-1].each do |table|
+    path[1..-1].each_with_index do |table, i|
       joins += "INNER JOIN #{table}
   ON  1=1
       "
-
-      j=0
-      path_tmp = path - [table]
-      p "path_tmp: #{path_tmp}"
-      relationships = nil
-
-      until !relationships.blank? or j > path_tmp.length do 
-        p "path_tmp[j] : #{path_tmp[j]}"
-        relationships = find_relationships_between(path_tmp[j], table)
-        j += 1
-      end
-
-      p "table relationships: #{table} vs #{relationships}"
-
+      p "#{i} vs #{path[i]} vs #{table}"
+      relationships = find_relationships_between(path[i], table)
       relationships.each do |relationship|
         joins += "AND #{relationship.first} = #{relationship.second}
       "

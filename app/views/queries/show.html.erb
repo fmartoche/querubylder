@@ -1,19 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Dimensions:</strong>
-  <%= @query.dimensions %>
+  <strong>Selected dimensions:</strong>
+  <%= @query.get_dimensions %>
 </p>
 
 <p>
-  <strong>Metrics:</strong>
-  <%= @query.metrics %>
+  <strong>Selected metrics:</strong>
+  <%= @query.get_metrics %>
 </p>
 
 <p>
   <strong>Conditions:</strong>
   <%= @query.conditions %>
 </p>
+
+<p>
+  <strong>Generated sql:</strong>
+  <%= @generated_sql %>
+</p>
+
 
 <%= link_to 'Edit', edit_query_path(@query) %> |
 <%= link_to 'Back', queries_path %>

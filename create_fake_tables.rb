@@ -35,3 +35,14 @@ custom_dimensions.table_columns.create(name: "value", data_type: "string")
 purchases.table_columns.create(name: "user_id", data_type: "integer")
 purchases.table_columns.create(name: "amount", data_type: "integer")
 purchases.table_columns.create(name: "purchase_date", data_type: "date")
+
+TableColumn.all.each do |col|
+  AllowedInput.create(name: "#{col.table.name}.#{col.name}", input_type: "dimension", alias: "#{col.name} (#{col.table.name})")
+end
+
+AllowedInput.create(name: "COUNT(*)", input_type: "metric", alias: "count")
+AllowedInput.create(name: "SUM(purchases.amount)", input_type: "metric", alias: "total purchases")
+
+Table.all.each do |table|
+  AllowedInput.create(name: "COUNT(DISTINCT #{table.name.pluralize}.id)", input_type: "metric", alias: "distinct #{table.name.pluralize}")
+end

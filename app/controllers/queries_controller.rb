@@ -10,6 +10,7 @@ class QueriesController < ApplicationController
   # GET /queries/1
   # GET /queries/1.json
   def show
+    @generated_sql = @query.build_query
   end
 
   # GET /queries/new
@@ -69,6 +70,9 @@ class QueriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def query_params
-      params.require(:query).permit(:dimensions, :metrics, :conditions)
+      p = params.require(:query).permit(:dimensions, :metrics, :conditions)
+      p[:dimensions] = Marshal.dump(params[:query][:dimensions])
+      p[:metrics] = Marshal.dump(params[:query][:metrics])
+      p
     end
 end

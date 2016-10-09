@@ -13,12 +13,22 @@
 
   <div class="field">
     <%= f.label :dimensions %><br>
-    <%= f.text_field :dimensions %>
+    <% AllowedInput.where(input_type: 'dimension').all.each do |input| %>
+      <%= f.check_box(:dimensions, { :multiple => true }, input.name, nil) %>
+      <%= input.alias %>
+      <br/>
+    <% end %>
   </div>
+
   <div class="field">
     <%= f.label :metrics %><br>
-    <%= f.text_field :metrics %>
+    <% AllowedInput.where(input_type: 'metric').all.each do |input| %>
+      <%= f.check_box(:metrics, { :multiple => true }, input.name, nil) %>
+      <%= input.alias %>
+      <br/>
+    <% end %>
   </div>
+
   <div class="field">
     <%= f.label :conditions %><br>
     <%= f.text_field :conditions %>
