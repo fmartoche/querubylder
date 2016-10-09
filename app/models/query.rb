@@ -10,7 +10,7 @@ class Query < ActiveRecord::Base
     #self.dimensions=Marshal.dump(['sessions.start_date', 'hits.type'])
     #self.metrics=Marshal.dump(['COUNT(custom_dimensions.id)'])
 
-    unless are_inputs_secure?
+    if are_inputs_insecure?
       raise "InsecureInputError"
     end
 
@@ -171,21 +171,21 @@ class Query < ActiveRecord::Base
     YAML.load(self.dimensions)
   end
 
-  def are_inputs_secure?
+  def are_inputs_insecure?
     get_dimensions.each do |dimension|
       cnt = AllowedInput.where(input_type: 'dimension', name: dimension).count
       if cnt == 0
-        return false 
+        return dimension 
       end
     end
 
     get_metrics.each do |metric|
       cnt = AllowedInput.where(input_type: 'metric', name: metric).count
       if cnt == 0
-        return false 
+        return metric 
       end
     end
 
-    true
+    nil
   end
 end
