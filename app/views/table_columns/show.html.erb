@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @table_column.name %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @table_column.type %>
+</p>
+
+<%= link_to 'Edit', edit_table_column_path(@table_column) %> |
+<%= link_to 'Back', table_columns_path %>

@@ -1,0 +1,1 @@
+json.array! @table_columns, partial: 'table_columns/table_column', as: :table_column

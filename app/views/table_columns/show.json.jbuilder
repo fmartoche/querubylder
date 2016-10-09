@@ -1,0 +1,1 @@
+json.partial! "table_columns/table_column", table_column: @table_column

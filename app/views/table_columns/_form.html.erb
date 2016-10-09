@@ -1,10 +1,10 @@
-<%= form_for(@column) do |f| %>
-  <% if @column.errors.any? %>
+<%= form_for(@table_column) do |f| %>
+  <% if @table_column.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@column.errors.count, "error") %> prohibited this column from being saved:</h2>
+      <h2><%= pluralize(@table_column.errors.count, "error") %> prohibited this table_column from being saved:</h2>
 
       <ul>
-      <% @column.errors.full_messages.each do |message| %>
+      <% @table_column.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -18,10 +18,6 @@
   <div class="field">
     <%= f.label :type %><br>
     <%= f.text_field :type %>
-  </div>
-  <div class="field">
-    <%= f.label :table_id %><br>
-    <%= f.text_field :table_id %>
   </div>
   <div class="actions">
     <%= f.submit %>

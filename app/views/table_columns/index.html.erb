@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Table Columns</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @table_columns.each do |table_column| %>
+      <tr>
+        <td><%= table_column.name %></td>
+        <td><%= table_column.type %></td>
+        <td><%= link_to 'Show', table_column %></td>
+        <td><%= link_to 'Edit', edit_table_column_path(table_column) %></td>
+        <td><%= link_to 'Destroy', table_column, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Table column', new_table_column_path %>
