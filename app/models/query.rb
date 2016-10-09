@@ -4,6 +4,7 @@
 
 class Query < ActiveRecord::Base
   require 'djikstra.rb'
+  require 'yaml'
 
   def build_query
     #self.dimensions=Marshal.dump(['sessions.start_date', 'hits.type'])
@@ -163,11 +164,11 @@ class Query < ActiveRecord::Base
   end
 
   def get_metrics
-    Marshal.load(self.metrics)
+    YAML.load(self.metrics)
   end
 
   def get_dimensions
-    Marshal.load(self.dimensions)
+    YAML.load(self.dimensions)
   end
 
   def are_inputs_secure?

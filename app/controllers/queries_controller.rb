@@ -71,8 +71,8 @@ class QueriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def query_params
       p = params.require(:query).permit(:dimensions, :metrics, :conditions)
-      p[:dimensions] = Marshal.dump(params[:query][:dimensions])
-      p[:metrics] = Marshal.dump(params[:query][:metrics])
+      p[:dimensions] = params[:query][:dimensions].to_yaml
+      p[:metrics] = params[:query][:metrics].to_yaml
       p
     end
 end
