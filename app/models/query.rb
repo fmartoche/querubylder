@@ -10,8 +10,9 @@ class Query < ActiveRecord::Base
     #self.dimensions=Marshal.dump(['sessions.start_date', 'hits.type'])
     #self.metrics=Marshal.dump(['COUNT(custom_dimensions.id)'])
 
-    if are_inputs_insecure?
-      raise "InsecureInputError"
+    inputs_insecure = are_inputs_insecure?
+    if inputs_insecure
+      raise "InsecureInputError: "
     end
 
     tables = get_all_tables_needed
