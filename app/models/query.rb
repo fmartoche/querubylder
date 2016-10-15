@@ -184,17 +184,21 @@ class Query < ActiveRecord::Base
   end
 
   def are_inputs_insecure?
-    get_dimensions.each do |dimension|
-      cnt = AllowedInput.where(input_type: 'dimension', name: dimension).count
-      if cnt == 0
-        return dimension 
+    if get_dimensions
+      get_dimensions.each do |dimension|
+        cnt = AllowedInput.where(input_type: 'dimension', name: dimension).count
+        if cnt == 0
+          return dimension 
+        end
       end
     end
 
-    get_metrics.each do |metric|
-      cnt = AllowedInput.where(input_type: 'metric', name: metric).count
-      if cnt == 0
-        return metric 
+    if get_metrics
+      get_metrics.each do |metric|
+        cnt = AllowedInput.where(input_type: 'metric', name: metric).count
+        if cnt == 0
+          return metric 
+        end
       end
     end
 
