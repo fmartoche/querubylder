@@ -1,21 +1,27 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Selected dimensions:</strong>
-  <ul>
-    <% @query.get_dimensions.each do |dim| %>
-      <li><%= dim %></li>
-    <% end %>
-  </ul>
+  <% if @query.get_dimensions %>
+    <ul>
+      <% @query.get_dimensions.each do |dim| %>
+        <li><%= dim %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p> No dimension. </p>
+  <% end %>
 </p>
 
 <p>
   <strong>Selected metrics:</strong>
-  <ul>
-    <% @query.get_metrics.each do |metric| %>
-      <li><%= metric %></li>
-    <% end %>
-  </ul>
+  <% if @query.get_metrics %>
+    <ul>
+      <% @query.get_metrics.each do |metric| %>
+        <li><%= metric %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p> No metric. </p>
+  <% end %>
 </p>
 
 <p>

@@ -18,27 +18,29 @@ class QueriesController < ApplicationController
 
   def create
     @query = Query.new(query_params)
-
-    respond_to do |format|
+    
+    if query_params
       if @query.save
-        format.html { redirect_to @query, notice: 'Query was successfully created.' }
-        format.json { render :show, status: :created, location: @query }
+        redirect_to @query, notice: 'Query was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @query.errors, status: :unprocessable_entity }
+        render :new
       end
+    else
+      flash[:notice] = 'Please indicate at least a dimension or a metric.'
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
+    if query_params
       if @query.update(query_params)
-        format.html { redirect_to @query, notice: 'Query was successfully updated.' }
-        format.json { render :show, status: :ok, location: @query }
+        redirect_to @query, notice: 'Query was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @query.errors, status: :unprocessable_entity }
+        render :edit
       end
+    else 
+      flash[:notice] = 'Please indicate at least a dimension or a metric.'
+      render :edit
     end
   end
 
@@ -52,9 +54,13 @@ class QueriesController < ApplicationController
 
   private
     def query_params
-      p = params.require(:query).permit(:dimensions, :metrics, :conditions)
-      p[:dimensions] = params[:query][:dimensions].to_yaml
-      p[:metrics] = params[:query][:metrics].to_yaml
-      p
+      if params[:query]
+        p = params.require(:query).permit(:dimensions, :metrics, :conditions)
+        p[:dimensions] = params[:query][:dimensions].to_yaml
+        p[:metrics] = params[:query][:metrics].to_yaml
+        p
+      else
+        nil
+      end
     end
 end

@@ -18,29 +18,33 @@ class Query < ActiveRecord::Base
     tables = get_all_tables_needed
     puts "Tables: #{tables}"
 
-    if tables.length > 1
-      table_graph = build_table_graph
-      puts "Table graph: #{table_graph}"
-      puts "Table graph edges: #{table_graph.edges}"
-      table_path = build_table_path_from_table_graph(table_graph, tables)
-      p "Table path: #{table_path}"
-      joins = generate_joins_from_path(table_path)
-      p "joins: #{joins}"
-    else 
-      joins = "FROM #{tables.first}   "
-    end 
+    if tables.length > 0
+      if tables.length > 1
+        table_graph = build_table_graph
+        puts "Table graph: #{table_graph}"
+        puts "Table graph edges: #{table_graph.edges}"
+        table_path = build_table_path_from_table_graph(table_graph, tables)
+        p "Table path: #{table_path}"
+        joins = generate_joins_from_path(table_path)
+        p "joins: #{joins}"
+      else 
+        joins = "FROM #{tables.first}   "
+      end 
 
-    selects = build_select(get_dimensions, get_metrics)
-    p "selects: #{selects}"
-    group_by = build_group_by(get_dimensions, get_metrics)
-    p "group_by: #{group_by}"
-    final_query = build_query_from_strings(selects, joins, group_by)
-    p "final query: #{final_query}"
-    final_query
+      selects = build_select(get_dimensions, get_metrics)
+      p "selects: #{selects}"
+      group_by = build_group_by(get_dimensions, get_metrics)
+      p "group_by: #{group_by}"
+      final_query = build_query_from_strings(selects, joins, group_by)
+      p "final query: #{final_query}"
+      final_query
+    else
+      "No table provided to make a query on."
+    end
   end
 
   def get_all_tables_needed
-    (get_dimensions+get_metrics).map do |s|
+    get_dimensions_and_metrics.map do |s|
       get_tables_from_string(s)
     end.flatten.uniq
   end
@@ -137,7 +141,7 @@ class Query < ActiveRecord::Base
   def build_select(dimensions, metrics)
     out = "SELECT
   "
-    (dimensions+metrics).each_with_index do |s, i|
+    get_dimensions_and_metrics.each_with_index do |s, i|
       if i > 0
         comma = ","
       end
@@ -150,7 +154,7 @@ class Query < ActiveRecord::Base
   end  
 
   def build_group_by(dimensions, metrics)
-    if metrics.length > 0
+    if metrics.length > 0 and dimensions
       out = "GROUP BY "
 
       dimensions.length.times do |i| 
@@ -181,6 +185,12 @@ class Query < ActiveRecord::Base
 
   def get_dimensions
     YAML.load(self.dimensions)
+  end
+
+  def get_dimensions_and_metrics
+    dims = get_dimensions
+    metrics = get_metrics
+    (dims ? dims : []) + (metrics ? metrics : [])
   end
 
   def are_inputs_insecure?
