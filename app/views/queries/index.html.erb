@@ -22,16 +22,20 @@
       <tr>
         <td>
           <ul>
-            <% query.get_dimensions.each do |dim| %>
-              <li><%= dim %></li>
-            <% end %>
+            <% if query.get_dimensions
+                 query.get_dimensions.each do |dim| %>
+                   <li><%= dim %></li>
+            <%   end
+               end %>
           </ul>
         </td>
         <td>
           <ul>
-            <% query.get_metrics.each do |metric| %>
-              <li><%= metric %></li>
-            <% end %>
+            <% if query.get_metrics
+                 query.get_metrics.each do |metric| %>
+                   <li><%= metric %></li>
+            <%   end
+               end %>
           </ul>
         </td>
         <td><%= simple_format(query.build_query) %></td>
