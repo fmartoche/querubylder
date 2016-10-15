@@ -154,7 +154,7 @@ class Query < ActiveRecord::Base
   end  
 
   def build_group_by(dimensions, metrics)
-    if metrics.length > 0 and dimensions
+    if metrics and metrics.length > 0 and dimensions
       out = "GROUP BY "
 
       dimensions.length.times do |i| 
